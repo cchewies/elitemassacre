@@ -14,14 +14,13 @@ def loadAllJournals():
       MissionTracker.completeMission(event)
     if event['event'] == "MissionFailed":
       MissionTracker.completeMission(event)
-    if event['event'] == "Bounty":
-      MissionTracker.processKill(event)
 
 def runMassacreHelper():
   loadAllJournals()
   data = []
   while 1:
     data = ReadJournal.fetchJournalUpdate(data)
+    MissionTracker.reset()
 
     for event in data:
       if event['event'] == "MissionAccepted":
@@ -39,9 +38,12 @@ def runMassacreHelper():
     factions = MissionTracker.factionView()
     for faction in factions:
       hasActive = False
+      targetsSum = 0
       s = f"{faction}: "
       for mission in factions[faction]:
-        if mission['Kills'] < 100:
+        targetsSum += mission['Targets']
+      for mission in factions[faction]:
+        if mission['Kills'] < targetsSum:
           hasActive = True
           s += f"{mission['Kills']}/{mission['Targets']} "
       if hasActive: print(s)

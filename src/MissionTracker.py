@@ -2,6 +2,11 @@ import Config
 
 tracker = {}
 
+def reset():
+  for missionID in tracker.keys():
+    mission = tracker[missionID]
+    mission['Kills'] = 0
+
 def acceptMission(event):
   if not event['Name'] in Config.massacreNames: return
   if event['MissionID'] in tracker: return      # Already accepted
