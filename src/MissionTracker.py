@@ -32,3 +32,6 @@ def factionView():
       factions[mission['Faction']] = []
     factions[mission['Faction']].append(mission)
   return factions
+
+def getLen():
+  return len(tracker.keys())

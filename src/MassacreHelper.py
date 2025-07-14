@@ -35,14 +35,16 @@ def runMassacreHelper():
       if event['event'] == "Bounty":
         MissionTracker.processKill(event)
 
-    print("================== NEW EVENT ==================")
+    print(f"================ Missions ({MissionTracker.getLen()}/20) ================")
     factions = MissionTracker.factionView()
     for faction in factions:
+      hasActive = False
       s = f"{faction}: "
       for mission in factions[faction]:
-        if mission['Kills'] < mission['Targets']:
+        if mission['Kills'] < 100:
+          hasActive = True
           s += f"{mission['Kills']}/{mission['Targets']} "
-      print(s)
+      if hasActive: print(s)
 
 def main():
   runMassacreHelper()
