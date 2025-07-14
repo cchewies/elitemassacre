@@ -31,13 +31,22 @@ def runMassacreHelper():
         accept.append(event)
       if event['event'] == "MissionCompleted":
         complete.append(event)
+      if event['event'] == "MissionAbandoned":
+        complete.append(event)
+      if event['event'] == "MissionFailed":
+        complete.append(event)
 
     for event in accept:
       MissionTracker.acceptMission(event)
     for event in complete:
       MissionTracker.completeMission(event)
 
-    print(json.dumps(MissionTracker.factionView(), indent=2))
+    factions = MissionTracker.factionView()
+    for faction in factions:
+      s = f"{faction}: "
+      for mission in factions[faction]:
+        s += f"{mission['Targets']} "
+      print(s)
 
 def main():
   runMassacreHelper()

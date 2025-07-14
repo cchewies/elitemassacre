@@ -8,7 +8,7 @@ def obtainAllJournals():
   for journal in Config.dir.glob("Journal.*"):
     age = (time.time() - os.path.getmtime(journal)) / (60 * 60 * 24)
     if age < 8:
-      print(f"Loaded journal with age {age} days")
+      # print(f"Loaded journal with age {age} days")
       journals.append(str(journal))
   return journals
 

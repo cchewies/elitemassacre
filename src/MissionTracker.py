@@ -20,7 +20,6 @@ def factionView():
   factions = {}
   for missionID in tracker.keys():
     mission = tracker[missionID]
-    print(mission['Faction'])
     if not mission['Faction'] in factions:
       factions[mission['Faction']] = []
     factions[mission['Faction']].append(mission)
